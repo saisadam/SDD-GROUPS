@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Smart Discounts & Deals</title>
+<link rel="icon" href="https://img.icons8.com/color/96/discount.png" />
+<style>
+/* ==== GLOBAL ==== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f7f8fa;
+  color: #222;
+  transition: background 0.4s, color 0.4s;
+}
+.dark-mode { background: #121212; color: #f1f1f1; }
+
+/* ==== HEADER ==== */
+header {
+  background-color: #0038ff;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo img { width: 50px; }
+.logo h1 { font-size: 1.4em; }
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: white;
+  border-radius: 25px;
+  padding: 3px 8px;
+}
+.search-container input {
+  border: none;
+  outline: none;
+  padding: 7px;
+  width: 200px;
+  border-radius: 25px;
+}
+.search-container button {
+  border: none;
+  background: #ff9800;
+  color: white;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.toggle-mode {
+  background: #ff9800;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* ==== NAV ==== */
+nav {
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+nav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  flex-wrap: wrap;
+}
+nav li { margin: 10px 15px; }
+nav a {
+  color: #0038ff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+nav a:hover { color: #ff9800; }
+
+/* ==== FLASH DEALS ==== */
+.flash-deals {
+  padding: 30px 10px;
+  background: #fff6da;
+}
+.flash-deals h2 {
+  margin-bottom: 20px;
+  font-size: 1.8em;
+}
+.deals-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.deal-card {
+  background: white;
+  border-radius: 10px;
+  width: 260px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.deal-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+.deal-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+.deal-info { padding: 10px; }
+.deal-info p { font-weight: 600; margin-bottom: 5px; }
+.deal-info span { color: #ff9800; font-weight: bold; }
+.deal-btn {
+  display: inline-block;
+  margin: 10px 0;
+  background: #0038ff;
+  color: white;
+  padding: 7px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.deal-btn:hover { background: #ff9800; }
+
+/* ==== PRODUCTS ==== */
+.products-section {
+  padding: 40px 20px;
+}
+.filters {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.filters select {
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: auto;
+}
+.product-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  padding: 15px;
+}
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+.product-card img {
+  width: 100%;
+  border-radius: 5px;
+}
+.product-card p {
+  margin: 10px 0 5px;
+  font-weight: 600;
+}
+.buy-btn {
+  background: #0038ff;
+  color: white;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 8px;
+}
+.buy-btn:hover { background: #ff9800; }
+
+/* ==== FOOTER ==== */
+footer {
+  background: #0038ff;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 50px;
+}
+
+/* ==== DARK MODE STYLES ==== */
+.dark-mode header { background: #222; }
+.dark-mode nav { background: #1e1e1e; }
+.dark-mode nav a { color: #ffcc00; }
+.dark-mode .product-card,
+.dark-mode .deal-card { background: #1e1e1e; color: #f1f1f1; }
+.dark-mode footer { background: #111; }
+
+/* ==== RESPONSIVE ==== */
+@media (max-width: 768px) {
+  header { flex-direction: column; text-align: center; gap: 10px; }
+  .search-container input { width: 180px; }
+  nav ul { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="https://img.icons8.com/color/96/discount.png" alt="logo">
+    <h1>Smart Discounts & Deals</h1>
+  </div>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search products...">
+    <button>🔍</button>
+  </div>
+  <button class="toggle-mode" onclick="toggleMode()">🌙 Mode</button>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#" onclick="filterCategory('all')">All</a></li>
+    <li><a href="#" onclick="filterCategory('fashion')">Fashion</a></li>
+    <li><a href="#" onclick="filterCategory('gadgets')">Gadgets</a></li>
+    <li><a href="#" onclick="filterCategory('beauty')">Beauty</a></li>
+  </ul>
+</nav>
+
+<section class="flash-deals">
+  <h2>🔥 Top Flash Deals</h2>
+  <div class="deals-container">
+    <div class="deal-card">
+      <a href="https://fkrt.co/kAjvoE" ><img src="echio Buds Xero Tws Earbud W8 With Zen Quad Mic Enc, 50hrs Battery, Fast Charging Bluetooth.webp" alt="Buds ">
+      </a>
+      <div class="deal-info"><p>echio Buds Xero Tws Earbud W8 With Zen Quad Mic Enc, 50hrs Battery, Fast Charging Bluetooth
+Price history</p><span>599</span></div>
+      <a href="https://fkrt.co/kAjvoE" class="deal-btn">View Deal</a>
+    </div>
+    <div class="deal-card">
+      <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRcu3-35G-LTJHxjIlJfCr80IfIurUJen_XM1e0LJhcIM2vLqt1bM2X2GxasXqctOSEsrqBDjKwa5K7J5hIEochHHqXilHAX6chsF_QbWs" alt="women top and skirt">
+      <div class="deal-info"><p>3buddy Fashion Women Crop Top Skirt Set</p><span>740</span></div>
+      <a href="https://fkrt.co/UJgVTR" class="deal-btn">View Deal</a>
+    </div>
+    <div class="deal-card">
+      <img src="https://via.placeholder.com/260x180.png?text=Hair+Dryer" alt="Hair Dryer">
+      <div class="deal-info"><p>Hair Dryer</p><span>$29.99</span></div>
+      <a href="#" class="deal-btn">View Deal</a>
+    </div>
+  </div>
+</section>
+
+<section class="products-section">
+  <h2>🛍️ Browse All Products</h2>
+  <div class="filters">
+    <label>Filter by price:</label>
+    <select id="priceFilter" onchange="filterByPrice()">
+      <option value="all">All</option>
+      <option value="low">Under $50</option>
+      <option value="mid">$50 - $100</option>
+      <option value="high">Above $100</option>
+    </select>
+  </div>
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<footer>
+  <p>© 2025 Smart Discounts & Deals | Powered by Affiliate Links</p>
+</footer>
+
+<script>
+// === PRODUCT DATA (no home category) ===
+const products = [
+  {name: "Smartphone X12", category: "gadgets", price: 120, image: "https://via.placeholder.com/240x180.png?text=Smartphone", link: "#"},
+  {name: "Casual Jacket", category: "fashion", price: 45, image: "https://via.placeholder.com/240x180.png?text=Jacket", link: "#"},
+  {name: "Bluetooth Earbuds", category: "gadgets", price: 59, image: "https://via.placeholder.com/240x180.png?text=Earbuds", link: "#"},
+  {name: "Makeup Kit", category: "beauty", price: 70, image: "https://via.placeholder.com/240x180.png?text=Makeup+Kit", link: "#"},
+  {name: "Running Shoes", category: "fashion", price: 85, image: "https://via.placeholder.com/240x180.png?text=Shoes", link: "#"},
+  {name: "Smart Glasses", category: "gadgets", price: 150, image: "https://via.placeholder.com/240x180.png?text=Smart+Glasses", link: "#"}
+];
+
+const grid = document.getElementById("productGrid");
+
+// === DISPLAY PRODUCTS ===
+function displayProducts(items) {
+  grid.innerHTML = "";
+  items.forEach(p => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+    card.innerHTML = `
+      <img src="${p.image}" alt="${p.name}">
+      <p>${p.name}</p>
+      <strong>$${p.price}</strong><br>
+      <a href="${p.link}" class="buy-btn">View Deal</a>
+    `;
+    grid.appendChild(card);
+  });
+}
+displayProducts(products);
+
+// === SEARCH ===
+const searchInput = document.getElementById("searchInput");
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.toLowerCase();
+  const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+  displayProducts(filtered);
+});
+
+// === CATEGORY FILTER ===
+function filterCategory(cat) {
+  if (cat === "all") return displayProducts(products);
+  const filtered = products.filter(p => p.category === cat);
+  displayProducts(filtered);
+}
+
+// === PRICE FILTER ===
+function filterByPrice() {
+  const value = document.getElementById("priceFilter").value;
+  let filtered = products;
+  if (value === "low") filtered = products.filter(p => p.price < 50);
+  else if (value === "mid") filtered = products.filter(p => p.price >= 50 && p.price <= 100);
+  else if (value === "high") filtered = products.filter(p => p.price > 100);
+  displayProducts(filtered);
+}
+
+// === DARK/LIGHT MODE ===
+function toggleMode() {
+  document.body.classList.toggle("dark-mode");
+}
+</script>
+</body>
+</html>
